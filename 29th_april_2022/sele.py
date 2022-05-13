@@ -10,7 +10,7 @@ import time
 import pyautogui
 from selenium.webdriver.common.action_chains import ActionChains
 import random
-
+from bs4 import BeautifulSoup
 x = random.randint(1, 6)
 driver = webdriver.Chrome(executable_path=r"C:\Users\ash\Desktop\python_practise\selenium\29th_april_2022\chromedriver_win32\chromedriver.exe")
 driver.get('https://www.veed.io/')
@@ -50,7 +50,7 @@ WebDriverWait(driver,10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="d
 WebDriverWait(driver,10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="dropWrapper-upload"]/div/div/div/div[1]/div[1]/div/div/div[2]/div/button'))).click()
 
 action = webdriver.ActionChains(driver)
-time.sleep(45)
+time.sleep(50)
 wait_var = WebDriverWait(driver,10)
 liElement=driver.find_element_by_xpath('//*[@id="dropWrapper-upload"]/div/div/div/div[1]/div[1]/div/div/div[3]/div[1]/div')
 button_xpath  = '//*[@id="dropWrapper-upload"]/div/div/div/div[1]/div[1]/div/div/div[3]/div[1]/div/div' 
@@ -62,11 +62,35 @@ amp=ActionChains(driver)
 f = open("demofile3.txt", "w")
 amp.move_to_element(liElement).perform()
 for i in range(20):
-  driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", liElement)
-  time.sleep(random.randint(200,500)/1000)
-  amp.perform()
+    driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", liElement)
+    # time.sleep(2)
+    amp.perform()
+    soup = BeautifulSoup(driver.page_source, 'html.parser')
+    # time.sleep(1)
+    # print("And Purified text is")
+    tin = soup.findAll('textarea')
+    # sup = BeautifulSoup(soup, '')
+    time.sleep(1)
+    mydivs = soup.findAll(
+        "textarea", {"class": "TextEditorStyled__TextArea-sc-nw7y0k-1 iBnmpX"})
+    # tex = mydivs.getText()TextEditorStyled__TextArea-sc-nw7y0k-1 iBnmpX
+    kost = []
+    for things in kost:
+        soup = BeautifulSoup(str(mydivs), 'html.parser')
+
+    soup = BeautifulSoup(str(mydivs), 'html.parser')
+    find_span = soup.find_all("textarea")
+    # print(type(find_span))
+    soup = BeautifulSoup(str(find_span), 'html.parser')
+    tim = soup.get_text()
+
+    m = tim.replace("[", "")
+    n = m.replace("]", "")
+    L = n.split(',')
   
-  f.write(driver.page_source)
+  
+  
+    f.write(tim)
   # print(driver.page_source)
 
 # action.scroll(400, 25).perform()
